@@ -1,7 +1,6 @@
 /* eslint-disable */
 import React, { Component } from "react";
 import API from "../utils/API";
-import Search from './Search';
 import UserDataRow from './UserDataRow';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortAlphaDown } from '@fortawesome/free-solid-svg-icons'
@@ -54,7 +53,7 @@ class UserDataTable extends Component {
 
     renderPage() {
         if (this.state.users.length === 0) {
-            return <h1> LOADING...</h1>
+            return <h1> No Matching users. Please refresh the page.</h1>
         } else {
             const sortedUsers = this.state.users.sort((a, b) => {
                 let aName=a.name.first+ " " +a.name.last
