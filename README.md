@@ -1,4 +1,43 @@
+# USER-DIRECTORY
+
+## Table of Contents
+
+* [Description](#description)
+* [Installation](#installation)
+* [Deployed Application](#application)
+* [Screenshots](#screenshots)
+* [Additional Information](#Create-React-App)
+
+## Description 
+
+This is an user directory app. This app provides a list of random user data. This app allows to sort user by name both by ascending and desending order and search by country. This is a front end only react application. Ajax call is made to "random user" api to retrieve fake data. Bootstrap and font awesome are used for styling and displaying icons.
+
+Git is used for version controlling and for periodic commits to Gitlab.
+
+## Installation
+
+Execute ``` npm install ``` command in terminal(Mac) or command promt(windows) to install all needed packages to run this application successfully.
+
+Run ``` npm run start ``` command in terminal(Mac) or command promt(windows) to start the application.
+
+
+## Application
+
+The application is deployed as github pages and can be found at https://janani2285.github.io/user-directory/ 
+
+
+## Screenshots
+ <img src="public/assets/images/1.png"><br>
+<img src="public/assets/images/2.png"><br>
+<img src="public/assets/images/3.png"><br> 
+<img src="public/assets/images/4.png"><br> 
+
+
+
+## Create-React-App
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
 
