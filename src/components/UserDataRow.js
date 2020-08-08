@@ -5,10 +5,9 @@ function UserDataRow(props) {
 
         <tr >
             <td>
-                <img src={props.image} alt={props.firstName} />
+                <img src={props.image} alt={props.name} />
             </td>
-            <td>{props.firstName}</td>
-            <td>{props.lastName}</td>
+            <td>{props.name}</td>
             <td>{props.age}</td>
             <td>{props.gender}</td>
             <td>{props.email}</td>

@@ -6,7 +6,8 @@ import UserDataRow from './UserDataRow';
 
 class UserDataTable extends Component {
     state = {
-        users: []
+        users: [],
+        order : "ascending"
     };
 
 
@@ -23,18 +24,41 @@ class UserDataTable extends Component {
             .catch((err) => console.log(err));
     };
 
+    handleNameSort = () => {
+        this.setState({
+          order: this.state.order === "ascending" ? "descending" : "ascending",
+        });
+    };
+
     renderPage() {
         if (this.state.users.length === 0) {
             return <h1> LOADING...</h1>
         } else {
+            const sortedUsers = this.state.users.sort((a, b) => {
+                let aName=a.name.first+ " " +a.name.last
+                let bName=b.name.first+ " " +b.name.last
+                if (aName === bName) {
+                  return 0;
+                }
+                if (this.state.order === "ascending") {
+                  if (aName < bName) {
+                    return -1;
+                  }
+                  return 1;
+                }
+                if (aName < bName) {
+                  return 1;
+                }
+                return -1;
+              });
+
             return (
                 <div className="table-responsive">
                     <table className="table">
                         <thead className="thead-dark">
                             <tr>
                                 <th scope="col">Photo</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
+                                <th scope="col" onClick={this.handleNameSort}> Name</th>
                                 <th scope="col">Age</th>
                                 <th scope="col">Gender</th>
                                 <th scope="col">Email</th>
@@ -43,13 +67,13 @@ class UserDataTable extends Component {
                         </thead>
                         <tbody>
 
-                            {this.state.users.map((user) => {
+                            {sortedUsers.map((user) => {
                                 return <UserDataRow
                                     id={user.id.value}
                                     key={user.email}
                                     image={user.picture.medium}
-                                    firstName={user.name.first}
-                                    lastName={user.name.last}
+                                    name={user.name.first+ " " +user.name.last}
+                                   // lastName={user.name.last}
                                     gender={user.gender}
                                     age={user.dob.age}
                                     email={user.email}
