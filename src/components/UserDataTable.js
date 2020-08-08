@@ -1,6 +1,7 @@
 /* eslint-disable */
 import React, { Component } from "react";
 import API from "../utils/API";
+import Search from './Search';
 import UserDataRow from './UserDataRow';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortAlphaDown } from '@fortawesome/free-solid-svg-icons'
@@ -8,10 +9,13 @@ import { faSortAlphaDownAlt } from '@fortawesome/free-solid-svg-icons'
 
 
 class UserDataTable extends Component {
+   
     state = {
         users: [],
+        masterUsers: [],
         order : "ascending",
-        icon :  faSortAlphaDown 
+        icon :  faSortAlphaDown,
+        searchText: ""
     };
 
 
@@ -20,10 +24,11 @@ class UserDataTable extends Component {
     }
 
     getUser = () => {
+        
         API.getUser()
 
             .then((res) => {
-                this.setState({ users: res.data.results })
+                this.setState({ users: res.data.results, masterUsers: res.data.results})
             })
             .catch((err) => console.log(err));
     };
@@ -33,6 +38,18 @@ class UserDataTable extends Component {
           order: this.state.order === "ascending" ? "descending" : "ascending",
           icon: this.state.icon === faSortAlphaDown ?  faSortAlphaDownAlt  :  faSortAlphaDown
         });
+    };
+
+    handleInputChange = event => {
+        // Getting the value and name of the input which triggered the change
+        const { name, value } = event.target; 
+        const filteredUser = this.state.masterUsers.filter((user) => user.location.country.toUpperCase().startsWith(value.toUpperCase()))
+        // Updating the input's state
+        this.setState({
+            [name]: value,
+            users : value ===""? this.state.masterUsers:filteredUser
+        });
+       
     };
 
     renderPage() {
@@ -58,6 +75,17 @@ class UserDataTable extends Component {
               });
              
             return (
+                <div>
+                <div className="text-center pb-5">
+                    <input
+                        className="border border-danger"
+                        value={this.state.searchText}
+                        name="searchText"
+                        onChange={this.handleInputChange}
+                        type="text"
+                        placeholder="Search Text"
+                    />
+                </div>
                 <div className="table-responsive">
                     <table className="table">
                         <thead className="thead-dark">
@@ -88,6 +116,7 @@ class UserDataTable extends Component {
 
                         </tbody>
                     </table>
+                </div>
                 </div>
             );
         }
