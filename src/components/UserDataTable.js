@@ -1,38 +1,73 @@
-import React from "react";
+/* eslint-disable */
+import React, { Component } from "react";
+import API from "../utils/API";
+import UserDataRow from './UserDataRow';
 
-function UserDataTable() {
-return (
-    <table class="table">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-);
+
+class UserDataTable extends Component {
+    state = {
+        users: []
+    };
+
+
+    componentDidMount() {
+        this.getUser();
+    }
+
+    getUser = () => {
+        API.getUser()
+
+            .then((res) => {
+                this.setState({ users: res.data.results })
+            })
+            .catch((err) => console.log(err));
+    };
+
+    renderPage() {
+        if (this.state.users.length === 0) {
+            return <h1> LOADING...</h1>
+        } else {
+            return (
+                <div className="table-responsive">
+                    <table className="table">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th scope="col">Photo</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Country</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {this.state.users.map((user) => {
+                                return <UserDataRow
+                                    id={user.id.value}
+                                    key={user.email}
+                                    image={user.picture.medium}
+                                    firstName={user.name.first}
+                                    lastName={user.name.last}
+                                    gender={user.gender}
+                                    age={user.dob.age}
+                                    email={user.email}
+                                    country={user.location.country}
+                                />
+                            })}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+    }
+    
+    render() {
+        return this.renderPage()
+    }
+
 }
-
 export default UserDataTable;

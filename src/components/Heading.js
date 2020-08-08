@@ -6,13 +6,13 @@ function Heading() {
           background: "darkgray",
         },
         textSize: {
-            fontSize: 100
+            fontSize: 60
         }
       };
     return (
         <div className="jumbotron jumbotron-fluid" style={styles.jumbotronColor}>
             <div className="container">
-                <h1 className="display-4 text-center" style={styles.textSize}>USER DIRECTORY</h1>
+                <h1 className="display-4 text-center font-weight-bold font-italic" style={styles.textSize}>USER DIRECTORY</h1>
 
             </div>
         </div>

@@ -4,7 +4,7 @@ import Heading from './components/Heading';
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Heading />
       <UserDataTable />
     </div>
